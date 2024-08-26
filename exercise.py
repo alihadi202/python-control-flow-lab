@@ -37,11 +37,17 @@ print_greeting()
 # - Ensure to provide feedback for non-alphabetical or invalid entries.
 
 def check_letter():
-  letter = input("enter ur letter: ")
-  if letter == 'a' or 'e' or 'i' or 'o' or 'u':
-    print(letter +" is a vowel")
-  else: 
-    print (letter + " is a consonant")
+    letter = input("enter ur letter: ")
+    list = ['a' , 'e' , 'i' , 'o' , 'u']
+    if letter.casefold in list :
+        print(letter +" is a vowel")
+
+    elif letter.isalpha() : 
+        print (letter + " is a consonant")
+
+    else:
+        print (letter + " is not a letter") 
+    
 # Call the function
 check_letter()
 
@@ -102,7 +108,7 @@ def calculate_dog_years():
         i = 1
         dogsYearAge = 0
         while i <= age:
-            if i < 2:
+            if i < 3:
                 dogsYearAge+=10  
             else:
                 dogsYearAge+=7
@@ -133,25 +139,90 @@ calculate_dog_years()
 # - Use logical operators (`AND`, `OR`, `NOT`) in your if statements to handle multiple conditions.
 
 def weather_advice():
-    if input("is it cold? ") == "yes":
+    cold = input("is it cold? ")
+    if  cold == "yes":
         cold = True 
-    else: 
+    elif cold == "no": 
         cold = False
-    if input("is it raining? ") == "no":
-        raining = False
     else:
+        cold =-1
+    raining = input("is it raining? ")
+    if raining == "no":
+        raining = False
+    elif raining == "yes":
         raining = True
-    if cold and raining:
+    else:
+        raining =-1
+    
+    if cold == -1 or raining == -1:
+        print("yes or no question")
+    elif cold and raining:
         print("Wear a waterproof coat.")
-    if cold and not raining:
+    elif cold and not raining:
         print("Wear a warm coat.")
-    if not cold and raining:
+    elif not cold and raining:
         print("Carry an umbrella.")
-    if not cold and raining:
+    elif not cold and not raining:
         print("Wear light clothing.")
 
 
 # Call the function
 weather_advice()
+
+# Exercise 5: What's the Season?
+#
+# Write a Python function named `determine_season` that figures out the season based on the entered date.
+#
+# Requirements:
+# - The function should first prompt the user to enter the month (as three characters): "Enter the month of the year (Jan - Dec):"
+# - Then, the function should prompt the user to enter the day of the month: "Enter the day of the month:"
+# - Determine the current season based on the date:
+#      - Dec 21 - Mar 19: Winter
+#      - Mar 20 - Jun 20: Spring
+#      - Jun 21 - Sep 21: Summer
+#      - Sep 22 - Dec 20: Fall
+# - Print the season for the entered date in the format: "<Mmm> <dd> is in <season>."
+#
+# Hints:
+# - Use 'in' to check if a string is in a list or tuple.
+# - Adjust the season based on the day of the month when needed.
+# - Ensure to validate input formats and handle unexpected inputs gracefully.
+from datetime import datetime
+import pandas
+
+# Create a date range from January 1st, 2020 to December 31st, 2020
+winter = pandas.date_range(start='2023-12-21', end='2024-4-19')
+spring = pandas.date_range(start='2024-4-20', end='2024-6-20')
+summer = pandas.date_range(start='2023-6-21', end='2024-9-21')
+fall = pandas.date_range(start='2023-9-22', end='2024-12-20')
+
+
+def determine_season():
+    # try:
+        month = input("month? ")
+        day = input("day? ")
+        months = ["jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec",]
+        for m in months:
+            if month == m:
+                monthInt = months.index(m)+1
+
+        
+         
+        date = datetime(year=2023 if monthInt !=12 else 2024 , month = monthInt , day = int(day))
+        if date in winter :
+            print("winter")
+        if date in summer:
+            print("summer")
+        if date in spring:
+            print("spring")
+        if date in fall:
+            print("fall")
+    # except:
+    #     print("wrong input i think")
+
+
+
+# Call the function
+determine_season()
 
 
